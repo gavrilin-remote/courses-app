@@ -35,4 +35,15 @@ export const promises = () => {
   */
 
   //Место для реализации задачи 2
+
+    return [
+        {
+            id: 5,
+            responseInfo: 'correct id',
+        },
+        {
+            id: -103,
+            responseInfo: 'incorrect id',
+        }
+    ]
 };
