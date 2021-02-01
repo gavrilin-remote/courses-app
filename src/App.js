@@ -6,6 +6,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
+          <h2>Redux-Form task:</h2>
           <CoursesForm />
       </header>
     </div>

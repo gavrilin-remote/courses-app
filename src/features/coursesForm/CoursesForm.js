@@ -60,9 +60,9 @@ let CoursesForm = ({handleSubmit, reset}) => {
                 <div>
                     <Field name="favoriteColor" component="select">
                         <option />
-                        <option value="ff0000">Red</option>
-                        <option value="00ff00">Green</option>
-                        <option value="0000ff">Blue</option>
+                        <option value="#ff0000">Red</option>
+                        <option value="#00ff00">Green</option>
+                        <option value="#0000ff">Blue</option>
                     </Field>
                 </div>
             </div>
