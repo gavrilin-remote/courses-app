@@ -84,10 +84,10 @@ let CoursesForm = ({handleSubmit, pristine, reset, submitting}) => {
                 </div>
             </div>
             <div>
-                <button type="submit" disabled={pristine || submitting}>
+                <button type="submit">
                     Submit
                 </button>
-                <button type="button" disabled={pristine || submitting} onClick={reset}>
+                <button type="button" onClick={reset}>
                     Clear Values
                 </button>
             </div>
