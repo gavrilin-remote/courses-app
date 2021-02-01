@@ -2,7 +2,7 @@ import React  from 'react';
 import {reduxForm, Field} from "redux-form";
 import styles from './CoursesForm.module.css';
 
-let CoursesForm = ({handleSubmit, pristine, reset, submitting}) => {
+let CoursesForm = ({handleSubmit, reset}) => {
     return (
         <form className={styles.form} onSubmit={handleSubmit}>
             <div className={styles.formGroup}>
