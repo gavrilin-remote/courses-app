@@ -9,6 +9,34 @@ export const promises = () => {
 
   //Место для реализации задачи 1
 
+    const makeAllCaps = (words) => {
+        return new Promise((res, rej) => {
+            setTimeout(() => {
+                try {
+                    const upperCased = words.map((word) => word.toUpperCase());
+                    res(upperCased);
+                } catch (err) {
+                    rej(`WE HAVE AN ERROR HERE:" ${err.message}`);
+                }
+            }, 2000);
+        });
+    };
+
+    const sortWords = (words) => {
+        return new Promise((res, rej) => {
+            setTimeout(() => {
+                return res([...words.sort()])
+            },2000)
+        });
+    }
+
+    makeAllCaps(['bbb', 'ccc', 'aaa', 'zzz'])
+      .then(data => sortWords(data)
+        .then(sorted => console.log(sorted))
+        .catch(err => console.log(err.message))
+      )
+      .catch(err => console.log(err));
+
   /*
     2. Создать метод, который будет воссоздавать реальный запрос на бэкенд с именем  getIdsService.
       Ответ getIdsService: массив - [5, 55, 12, 153, null, 345, 56, undefined, -103, 10, 67, 3.14].
@@ -36,6 +64,33 @@ export const promises = () => {
 
   //Место для реализации задачи 2
 
+    const getIdsService = () => {
+        return new Promise((res, rej) => {
+            setTimeout(() => {
+                res([5, 55, 12, 153, null, 345, 56, undefined, -103, 10, 67, 3.14])
+            }, 2000)
+        })
+    }
+
+    const checkIdStatusService = (ids) => {
+        return new Promise((res, rej) => {
+            let result = [];
+            const checker = (id) => {
+                if (Number.isInteger(id) && id > 0) {
+                    result = [...result, {id: id, responseInfo: 'correct id'}]
+                } else {
+                    result = [...result, {id: id, responseInfo: 'incorrect id'}]
+                }
+            }
+            setTimeout(() => {
+                ids.map(id => checker(id))
+                if(result.some(el => el.responseInfo === 'incorrect id')) {
+                    throw new Error('WE HAVE INCORRECT IDS')
+                }
+                res(result)
+            }, 2000)
+        })
+    }
 
     //Задача 3
     /*
