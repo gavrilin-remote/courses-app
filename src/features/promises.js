@@ -1,11 +1,40 @@
 export const promises = () => {
-
   /*
     1. Написать две функции, которые используют промисы. Первая функция makeAllCaps принимает массив слов и делает их
     заглавными, а затем вторая функция sortWords сортирует слова в алфавитном порядке.
     Если массив содержит что-либо, кроме строк, он должен выдать ошибку.
     Эти две функции в конце должны быть связаны  цепочкой then'ов.
    */
+  const names = ['lol', "kek", "cheburek"];
+
+  function checkString( val ) {
+    return typeof val === 'string'; 
+  } 
+
+  const makeAllCaps = (names) => new Promise((resolve, reject) => {
+      if (names.every(checkString)) {
+        setTimeout(() => {
+          resolve(names.map((name) => name.toUpperCase()));
+        }, 1000);
+      } else  {
+        let reason = new Error('"names" is not a string');
+        reject(reason); 
+      }
+    })
+
+  const sortWords = (names) => new Promise((resolve, reject) => {
+    if (names.every(checkString)) {
+      setTimeout(() => {
+        resolve(names.sort());
+      }, 2000);
+    } else {
+      let reason = new Error('"names" is not a string');
+      reject(reason); 
+    }
+  });
+
+  Promise.all([sortWords(names), makeAllCaps(names)])
+  .then(item => item.map(sortedArr => console.log(sortedArr))).catch(err => alert(err))
 
   //Место для реализации задачи 1
 
@@ -36,20 +65,19 @@ export const promises = () => {
 
   //Место для реализации задачи 2
 
-
-    //Задача 3
-    /*
+  //Задача 3
+  /*
      Обновить вес синтаксис чтобы работал через async/await
    */
 
-    return [
-        {
-            id: 5,
-            responseInfo: 'correct id',
-        },
-        {
-            id: -103,
-            responseInfo: 'incorrect id',
-        }
-    ]
+  return [
+    {
+      id: 5,
+      responseInfo: "correct id",
+    },
+    {
+      id: -103,
+      responseInfo: "incorrect id",
+    },
+  ];
 };
