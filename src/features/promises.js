@@ -31,11 +31,9 @@ export const promises = () => {
     }
 
     makeAllCaps(['bbb', 'ccc', 'aaa', 'zzz'])
-      .then(data => sortWords(data)
-        .then(sorted => console.log(sorted))
-        .catch(err => console.log(err.message))
-      )
-      .catch(err => console.log(err));
+      .then(data => sortWords(data))
+      .then(sorted => console.log(sorted))
+      .catch(err => console.log('ERRORRRR', err.message))
 
   /*
     2. Создать метод, который будет воссоздавать реальный запрос на бэкенд с именем  getIdsService.
@@ -64,6 +62,10 @@ export const promises = () => {
 
   //Место для реализации задачи 2
 
+    const state = {
+        validatedIds: []
+    };
+
     const getIdsService = () => {
         return new Promise((res, rej) => {
             setTimeout(() => {
@@ -72,30 +74,71 @@ export const promises = () => {
         })
     }
 
-    const checkIdStatusService = (ids) => {
+    const checkIdStatusService = (id) => {
         return new Promise((res, rej) => {
-            let result = [];
-            const checker = (id) => {
-                if (Number.isInteger(id) && id > 0) {
-                    result = [...result, {id: id, responseInfo: 'correct id'}]
-                } else {
-                    result = [...result, {id: id, responseInfo: 'incorrect id'}]
-                }
-            }
+            const condition = Number.isInteger(id) && id > 0;
             setTimeout(() => {
-                ids.map(id => checker(id))
-                if(result.some(el => el.responseInfo === 'incorrect id')) {
-                    throw new Error('WE HAVE INCORRECT IDS')
+                if (condition) {
+                    res(id)
+                } else {
+                    rej(id)
                 }
-                res(result)
-            }, 2000)
+            }, 1000)
         })
     }
+
+    getIdsService()
+      .then(data => {
+          return Promise.allSettled(data.map(id => {
+              return checkIdStatusService(id)
+          }))
+      })
+      .then(validated => {
+          validated.map(el => {
+              if(el.status === 'rejected') {
+                  return state.validatedIds = [...state.validatedIds, {id: el.reason, responseInfo: 'incorrect id'}];
+              }
+              return state.validatedIds = [...state.validatedIds, {id: el.value, responseInfo: 'correct id'}];
+          })
+      })
+      .then(() => console.log('OUTPUT', state.validatedIds))
+      .catch(err => console.log('HERE IS AN ERROR', err.message))
 
     //Задача 3
     /*
      Обновить вес синтаксис чтобы работал через async/await
    */
+
+    // Первая задача
+    const theFirstTask = async () => {
+        try {
+            const caps = await makeAllCaps(['bbb', 'ccc', 'aaa', 'zzz']);
+            const sorted = await sortWords(caps);
+            console.log('SORTED RESUlT', sorted)
+        }
+        catch (err) {
+            console.log(err)
+        }
+    }
+
+    const theSecondTask = async () => {
+        try {
+            const ids = await getIdsService();
+            const validated = await Promise.allSettled(ids.map(id => {
+                return checkIdStatusService(id)
+            }));
+            await validated.map(el => {
+                if(el.status === 'rejected') {
+                    return state.validatedIds = [...state.validatedIds, {id: el.reason, responseInfo: 'incorrect id'}];
+                }
+                return state.validatedIds = [...state.validatedIds, {id: el.value, responseInfo: 'correct id'}];
+            });
+            console.log('OUTPUT', state)
+        }
+        catch (err) {
+            console.log(err)
+        }
+    }
 
     return [
         {
