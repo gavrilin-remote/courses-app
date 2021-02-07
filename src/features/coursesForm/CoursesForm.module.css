@@ -6,10 +6,67 @@
   margin-bottom: 30px;
 }
 
+.formError{
+    border: 3px solid red;
+}
+
+.formValid{
+    border: 3px solid green;
+}
+
 .formGroup{
  width: 100%;
  display:flex;
  align-items: flex-start;
  flex-direction: column;
  margin-bottom: 15px;
+}
+
+.active{
+    border: 3px dotted blue;
+}
+
+.loader{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255,255,255,0.8);
+}
+
+.loaderText{
+    color: darkgreen;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 50px;
+    letter-spacing: 10px;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+    -webkit-animation: glow 2s ease-in-out infinite alternate;
+    -moz-animation: glow 2s ease-in-out infinite alternate;
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+    from {
+        color: black;
+        text-shadow: 0 0 10px red, 0 0 20px red, 0 0 30px orangered, 0 0 40px darkorange, 0 0 50px darkorange, 0 0 60px orange, 0 0 70px orange, 0 0 90px brown;
+    }
+
+    to {
+        color: gray;
+        text-shadow: 0 0 20px red, 0 0 30px red, 0 0 40px orangered, 0 0 50px darkorange, 0 0 60px darkorange, 0 0 70px orange, 0 0 80px orange, 0 1 90px brown;
+    }
+}
+
+.error {
+    margin-top: 5px;
+    color: red;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: left;
 }
